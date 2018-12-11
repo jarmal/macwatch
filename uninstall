@@ -1,0 +1,4 @@
+systemctl stop macwatch.service
+systemctl disable macwatch.service
+rm /etc/systemd/system/macwatch.service
+systemctl daemon-reload

@@ -1,0 +1,24 @@
+apt-get install python-dpkt python-pypcap python-redis redis-server redis-tools
+MACWATCH_HOME=`pwd`
+
+cat > /etc/systemd/system/macwatch.service <<EOT 
+[Unit]
+Description=Observes mac addresses seen in local network and stores them in redis database
+After=redis-server.service
+
+[Service]
+Type=simple
+User=root
+Group=root
+WorkingDirectory=$MACWATCH_HOME
+ExecStart=$MACWATCH_HOME/macwatch.py
+StandardOutput=syslog
+StandardError=syslog
+
+[Install]
+WantedBy=multi-user.target
+EOT
+
+systemd daemon-reload
+systemctl enable macwatch.service
+systemctl start macwatch.service
