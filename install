@@ -19,6 +19,6 @@ StandardError=syslog
 WantedBy=multi-user.target
 EOT
 
-systemd daemon-reload
+systemctl daemon-reload
 systemctl enable macwatch.service
 systemctl start macwatch.service
